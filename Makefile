@@ -1,5 +1,4 @@
 PROG=		meltdown
-NOMAN=		yes
 
 # Meltdown is much more reliable to reproduce with static linking
 LDFLAGS=	-nopie -static
