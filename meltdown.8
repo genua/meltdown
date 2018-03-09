@@ -1,0 +1,83 @@
+.\"	$OpenBSD$
+.\"
+.\" Copyright (c) 2018 genua GmbH
+.\"
+.\" Permission to use, copy, modify, and distribute this software for any
+.\" purpose with or without fee is hereby granted, provided that the above
+.\" copyright notice and this permission notice appear in all copies.
+.\"
+.\" THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+.\" WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+.\" MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+.\" ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+.\" WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+.\" ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+.\" OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+.\"
+.Dd $Mdocdate: March 9 2018 $
+.Dt MELTDOWN 8
+.Os
+.Sh NAME
+.Nm meltdown
+.Nd Meltdown and Spectre PoC for OpenBSD
+.Sh SYNOPSIS
+.Nm
+.Op Fl ms
+.Op Fl iqvT
+.Op Fl n Ar minrounds
+.Op Fl t Ar threshold
+.Sh DESCRIPTION
+The
+.Nm
+utility attempts to exploit the Meltdown and Spectre vulnerabilities.
+It tries to read information from kernel space by exploiting these CPU flaws.
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.It Fl m
+Attempts to exploit the Meltdown vulnerability.
+This is default behavior.
+.It Fl s
+Attempts to exploit the Spectre vulnerability.
+.It Fl i
+Outputs the detailed CPU information.
+Multiple uses of
+.Fl i
+increase CPU information details.
+.It Fl q
+Starts the quick mode.
+.It Fl v
+Outputs verbose debug information.
+Multiple uses of
+.Fl v
+increase verbosity.
+.It Fl T
+Don't read kernel memory.
+.Nm
+attempts to read userspace memory of itself when using this flag.
+.It Fl n Ar minrounds
+Do at least
+.Ar minrounds
+rounds to an address.
+After
+.Ar minrounds
+rounds stop if we have at least one cache hit.
+One round per address to be read should be enough;
+but multiple rounds can help to filter clutter.
+The default value is 1.
+.It Fl t Ar threshold
+Sets the cache hit timing threshold to
+.Ar threshold .
+.El
+.Sh EXIT STATUS
+The
+.Nm
+utility exits 0 if no vulnerability could be exploited.
+If an usage error occurs
+.Nm
+exits 1.
+.Sh AUTHORS
+The
+.Nm
+utility was written by
+.An Gerhard Roth Aq Mt gerhard@openbsd.org .

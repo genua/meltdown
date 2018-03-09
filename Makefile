@@ -1,5 +1,5 @@
 PROG=		meltdown
-NOMAN=		yes
+MAN=		meltdown.8
 
 # Meltdown is much more reliable to reproduce with static linking
 LDFLAGS=	-nopie -static
