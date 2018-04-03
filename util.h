@@ -167,10 +167,12 @@ calibrate_clock(int verbose, int *threshold)
 	    PUSH(a)
 	    PUSH(b)
 	    PUSH(c)
+	    PUSH(d)
 	    "mov	$0x80000001,%%eax\n"
 	    "mov	$0,%%ecx\n"
 	    "cpuid\n"
 	    "mov	%%edx,%0\n"
+	    POP(d)
 	    POP(c)
 	    POP(b)
 	    POP(a)
