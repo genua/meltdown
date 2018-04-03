@@ -520,11 +520,9 @@ main(int argc, char **argv)
 			printf("%s with %d%% probability vulnerable to %s",
 			    what, perc, vname[vulns[v]]);
 			ret += 41;
-		} else {
+		} else
 			printf("%s is not vulnerable to %s", what,
 			    vname[vulns[v]]);
-			ret = 0;
-		}
 		if (identify == 2) {
 			/* System description on every line */
 			printf(" (");
