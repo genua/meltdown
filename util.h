@@ -122,8 +122,12 @@ xbegin(void)
 		    "+a" (ret) :: "memory");
 	else
 #endif
+	{
+		signal(SIGSEGV, sighandler);
+		signal(SIGBUS, sighandler);
 		if (sigsetjmp(_jmpbuf, 1) != 0)
 			ret = 0;
+	}
 	return ret;
 }
 
@@ -245,9 +249,6 @@ calibrate_clock(int verbose, int *threshold)
 			printf(" -> threshold %d", *threshold);
 		printf("\n");
 	}
-
-	signal(SIGSEGV, sighandler);
-	signal(SIGBUS, sighandler);
 
 	/* Return suggested threshold for cache access */
 	return;
