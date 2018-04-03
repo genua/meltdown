@@ -220,7 +220,7 @@ probability(enum vuln vuln, int kernel, int maxlen)
 #endif
 		break;
 	default:
-		return -1;
+		errx(1, "internal error: unknown vulnerability (%d)", vuln);
 	}
 	if ((blocks = calloc(nblocks, blocksize)) == NULL)
 		err(1, "malloc");
@@ -282,7 +282,7 @@ probability(enum vuln vuln, int kernel, int maxlen)
 		poc = spectre;
 		break;
 	default:
-		return -1;
+		errx(1, "internal error: unknown vulnerability (%d)", vuln);
 	}
 	if ((resultstr = calloc(len + 1, sizeof (*resultstr))) == NULL)
 		err(1, "malloc");
@@ -385,7 +385,7 @@ probability(enum vuln vuln, int kernel, int maxlen)
 		expected = spectre_pattern;
 		break;
 	default:
-		return -1;
+		errx(1, "internal error: unknown vulnerability (%d)", vuln);
 	}
 
 	for (i = 0, nmatch = 0; i < len; i++) {
