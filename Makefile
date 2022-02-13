@@ -9,5 +9,6 @@ CFLAGS+=	-Wall
 CFLAGS+=	-Werror
 CFLAGS+=	-Wno-unused-parameter
 CFLAGS+=	-Wno-missing-field-initializers
+CFLAGS+=	-Wno-unused-but-set-variable
 
 .include <bsd.prog.mk>
